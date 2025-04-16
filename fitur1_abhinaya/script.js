@@ -22,7 +22,7 @@ async function sendMessage() {
     inputField.value = "";
 
     try {
-        const response = await fetch("https://astha-ai-backend.vercel.app/chat", {
+        const response = await fetch("https://astha-ai-backend.vercel.app/chat/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: message })

@@ -51,13 +51,25 @@
     }
   </style>
 
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script> 
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {
       await OneSignal.init({
         appId: "eaa8e30e-7ab7-4102-be16-c9398cf348a1",
       });
+    });
+
+    OneSignalDeferred.push(async function (OneSignal) {
+      await OneSignal.init({
+        appId: "eaa8e30e-7ab7-4102-be16-c9398cf348a1",
+      });
+
+      const userId = localStorage.getItem("userId");
+      if (userId) {
+        await OneSignal.sendTag("user_id", userId);
+        console.log("✅ Tag user_id dikirim ke OneSignal:", userId);
+      }
     });
   </script>
 
