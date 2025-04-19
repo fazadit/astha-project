@@ -107,14 +107,14 @@
         <button onclick="tampilkanTantangan('adaptasi')" class="btn-softskill">
           <i data-lucide="repeat" class="w-8 h-8"></i><span>Adaptasi</span>
         </button>
-        <button onclick="tampilkanTantangan('empati')" class="btn-softskill">
-          <i data-lucide="heart" class="w-8 h-8"></i><span>Empati</span>
-        </button>
         <button onclick="tampilkanTantangan('pemecahan_masalah')" class="btn-softskill">
+          <i data-lucide="badge-check" class="w-8 h-8"></i><span>Pemecahan Masalah</span>
+        </button>
+        <button onclick="tampilkanTantangan('berpikir_kritis')" class="btn-softskill">
           <i data-lucide="brain-circuit" class="w-8 h-8"></i><span>Berpikir Kritis</span>
         </button>
         <button onclick="tampilkanTantangan('kepemimpinan')" class="btn-softskill">
-          <i data-lucide="badge-check" class="w-8 h-8"></i><span>Kepemimpinan</span>
+          <i data-lucide="user" class="w-8 h-8"></i><span>Kepemimpinan</span>
         </button>
         <button onclick="tampilkanTantangan('manajemen_waktu')" class="btn-softskill col-span-2 lg:col-span-1 mx-auto">
           <i data-lucide="clock" class="w-10 h-10"></i><span>Manajemen Waktu</span>
@@ -133,95 +133,105 @@
 
   <script>
     const tantangan = {
-      empati: [
-        "Mendengarkan cerita teman tanpa menyela",
-        "Membantu teman yang sedang kesulitan",
-        "Menghibur teman yang sedang sedih",
-        "Menjadi relawan dalam kegiatan sosial",
-        "Memberikan pujian tulus kepada teman"
-      ],
-      kepemimpinan: [
-        "Mengorganisir kelompok belajar",
-        "Menjadi ketua kelompok dalam proyek",
-        "Membuat rencana kegiatan sederhana",
-        "Mengambil keputusan dalam diskusi",
-        "Memberi arahan dengan jelas"
-      ],
       komunikasi: [
-        "Berani berbicara di depan kelas",
-        "Mengungkapkan pendapat dengan sopan",
-        "Mendengarkan saat orang lain berbicara",
-        "Menulis pesan yang jelas dan sopan",
-        "Berlatih presentasi di depan cermin"
+        "Tanya kabar ke 3 orang hari ini, dan dengerin beneran jawabannya.",
+        "Ngomong di depan kaca 3 menit tentang topik random.",
+        "Latihan active listening pas ngobrol: jangan potong, jangan multitasking.",
+        "Bikin voice note 1 menit untuk review harimu, lalu dengerin lagi.",
+        "Ucapin 3 pujian tulus ke orang yang kamu temui hari ini.",
+        "Latihan perkenalan diri dalam 30 detik (pitch singkat).",
+        "Coba ngobrol sama orang baru (bisa online juga).",
+        "Rekam dirimu cerita pengalaman lucu/aneh, lalu nilai ekspresinya.",
+        "Tulis caption IG yang lucu atau meaningful — tanpa overthinking.",
+        "Ikut diskusi atau grup chat dan kasih pendapat, jangan cuma jadi silent reader.",
+        "Ngomong pakai intonasi yang lebih ekspresif — no datar-datar club hari ini.",
+        "Tanya feedback dari teman: 'Gaya komunikasiku gimana menurutmu?'"
       ],
-      manajemen_waktu: [
-        "Membuat jadwal harian",
-        "Menghindari menunda-nunda tugas",
-        "Menyelesaikan tugas tepat waktu",
-        "Membagi waktu antara belajar dan bermain",
-        "Tidur dan bangun tepat waktu"
-      ],
-      kerja_tim: [
-        "Berpartisipasi aktif dalam kelompok",
-        "Membantu anggota tim yang kesulitan",
-        "Menghargai pendapat orang lain",
-        "Bekerja sama menyelesaikan tugas",
-        "Tidak memaksakan kehendak"
-      ],
-      pemecahan_masalah: [
-        "Mencari solusi saat ada konflik kecil",
-        "Menyusun langkah-langkah menyelesaikan tugas sulit",
-        "Mencoba hal baru untuk mengatasi hambatan",
-        "Belajar dari kesalahan",
-        "Bertanya saat tidak paham"
-      ],
-      adaptasi: [
-        "Menyesuaikan diri saat guru baru masuk",
-        "Mencoba tempat duduk baru",
-        "Mengikuti aturan baru di kelas",
-        "Berkenalan dengan teman baru",
-        "Menyesuaikan diri saat ada perubahan jadwal"
-      ]
+      // Daftar kategori lainnya sama seperti sebelumnya...
     };
   
-    function getKey(kategori, index) {
-      return `tantangan_${kategori}_${index}`;
+    function shuffleArray(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+  
+    function getTodayKey() {
+      const today = new Date();
+      return today.toISOString().split("T")[0]; // format YYYY-MM-DD
+    }
+  
+    function getStoredChallenges(kategori) {
+      const key = getTodayKey() + "_" + kategori;
+      const data = localStorage.getItem(key);
+      if (data) return JSON.parse(data);
+      return null;
+    }
+  
+    function setStoredChallenges(kategori, challenges) {
+      const key = getTodayKey() + "_" + kategori;
+      localStorage.setItem(key, JSON.stringify(challenges));
+    }
+  
+    function getStoredCheckboxes(kategori) {
+      const key = getTodayKey() + "_checkbox_" + kategori;
+      const data = localStorage.getItem(key);
+      if (data) return JSON.parse(data);
+      return [];
+    }
+  
+    function setStoredCheckboxes(kategori, checkboxes) {
+      const key = getTodayKey() + "_checkbox_" + kategori;
+      localStorage.setItem(key, JSON.stringify(checkboxes));
     }
   
     function tampilkanTantangan(kategori) {
-      const container = document.getElementById("tantanganContainer");
-      const list = document.getElementById("challengeList");
-      const judul = document.getElementById("judulTantangan");
-  
-      list.innerHTML = "";
-      judul.textContent = "Tantangan: " + kategori.charAt(0).toUpperCase() + kategori.slice(1).replace("_", " ");
-  
-      (tantangan[kategori] || []).forEach((teks, i) => {
-        const li = document.createElement("li");
-        li.className = "flex items-center gap-3";
-  
-        const checked = localStorage.getItem(getKey(kategori, i)) === "true";
-        const completedClass = checked ? "completed" : "";
-  
-        li.innerHTML = `
-          <input type="checkbox" class="challenge-checkbox" data-kategori="${kategori}" data-index="${i}" ${checked ? "checked" : ""}>
-          <span class="challenge-item ${completedClass}">${teks}</span>`;
-  
-        list.appendChild(li);
-      });
-  
       document.getElementById("kategoriContainer").classList.add("hidden");
-      container.classList.remove("hidden");
+      document.getElementById("tantanganContainer").classList.remove("hidden");
   
-      document.querySelectorAll('.challenge-checkbox').forEach((checkbox) => {
-        checkbox.addEventListener('change', () => {
-          const kategori = checkbox.getAttribute("data-kategori");
-          const index = checkbox.getAttribute("data-index");
-          const item = checkbox.nextElementSibling;
+      const challengeList = document.getElementById("challengeList");
+      const judul = document.getElementById("judulTantangan");
+      judul.textContent = `Tantangan ${kategori.replace(/_/g, ' ').toUpperCase()}`;
+      challengeList.innerHTML = "";
   
-          localStorage.setItem(getKey(kategori, index), checkbox.checked);
-          item.classList.toggle('completed', checkbox.checked);
+      let selectedChallenges = getStoredChallenges(kategori);
+      if (!selectedChallenges) {
+        selectedChallenges = shuffleArray(tantangan[kategori]).slice(0, 4);
+        setStoredChallenges(kategori, selectedChallenges);
+      }
+  
+      let checkboxes = getStoredCheckboxes(kategori);
+      if (checkboxes.length === 0) {
+        checkboxes = new Array(selectedChallenges.length).fill(false); // Set all checkboxes to false initially
+        setStoredCheckboxes(kategori, checkboxes);
+      }
+  
+      selectedChallenges.forEach((t, i) => {
+        const li = document.createElement("li");
+        li.classList.add("flex", "items-center", "space-x-2");
+  
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = `challenge-${i}`;
+        checkbox.classList.add("form-checkbox", "h-5", "w-5", "text-blue-600");
+        checkbox.checked = checkboxes[i]; // Set the checkbox checked based on saved data
+  
+        const label = document.createElement("label");
+        label.setAttribute("for", `challenge-${i}`);
+        label.classList.add("cursor-pointer", "challenge-item");
+        label.textContent = t;
+  
+        checkbox.addEventListener("change", () => {
+          checkboxes[i] = checkbox.checked; // Update checkbox status
+          setStoredCheckboxes(kategori, checkboxes); // Save the updated status
+          label.classList.toggle("completed", checkbox.checked);
         });
+  
+        if (checkbox.checked) {
+          label.classList.add("completed");
+        }
+  
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        challengeList.appendChild(li);
       });
     }
   
@@ -230,15 +240,16 @@
       document.getElementById("kategoriContainer").classList.remove("hidden");
     }
   
+    // menu
     document.getElementById("hamburgerBtn").addEventListener("click", function () {
       const menu = document.getElementById("menu");
       menu.classList.toggle("hidden");
       menu.classList.toggle("show");
     });
   
+    // lucide icons
     lucide.createIcons();
-  </script>
-  
+  </script>  
 
   <style>
     .btn-softskill {

@@ -58,12 +58,6 @@
       await OneSignal.init({
         appId: "eaa8e30e-7ab7-4102-be16-c9398cf348a1",
       });
-    });
-
-    OneSignalDeferred.push(async function (OneSignal) {
-      await OneSignal.init({
-        appId: "eaa8e30e-7ab7-4102-be16-c9398cf348a1",
-      });
 
       const userId = localStorage.getItem("userId");
       if (userId) {
