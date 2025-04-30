@@ -75,7 +75,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between border-b pb-2 mb-4">
       <div class="flex items-center">
-        <img alt="App logo" class="w-10 h-10 rounded-full mt-2 mb-2" src="https://placehold.co/40x40"/>
+        <img alt="App logo" class="w-10 h-10 rounded-full mt-2 mb-2" src="../assets/img/astha_logo.JPG"/>
         <span class="ml-6 text-xl font-bold">ASTHA</span>
       </div>
       <button class="block text-xl" id="hamburgerBtn">
@@ -98,7 +98,7 @@
       <h2 class="text-2xl font-bold pb-16 text-center">Pilih Kategori Tantangan</h2>
     
       <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        <button onclick="tampilkanTantangan('kerja_tim')" class="btn-softskill">
+        <button onclick="tampilkanTantangan('kerja_sama')" class="btn-softskill">
           <i data-lucide="users" class="w-8 h-8"></i><span>Kerja Sama</span>
         </button>
         <button onclick="tampilkanTantangan('komunikasi')" class="btn-softskill">
@@ -126,29 +126,47 @@
     <!-- Daftar Tantangan -->
     <div id="tantanganContainer" class="hidden mt-10 p-4 bg-white rounded-lg shadow-md max-w-2xl mx-auto">
       <button onclick="kembaliKeKategori()" class="mb-4 text-blue-600 hover:underline">← Kembali ke Kategori</button>
-      <h2 class="text-xl font-bold mb-4 text-center" id="judulTantangan">Tantangan</h2>
+      <h2 class="text-xl font-bold mb-4 text-center" id="judulTantangan">CHALLENGE</h2>
       <ul id="challengeList" class="space-y-3"></ul>
     </div>
   </div>
 
   <script>
     const tantangan = {
-      komunikasi: [
-        "Tanya kabar ke 3 orang hari ini, dan dengerin beneran jawabannya.",
-        "Ngomong di depan kaca 3 menit tentang topik random.",
-        "Latihan active listening pas ngobrol: jangan potong, jangan multitasking.",
-        "Bikin voice note 1 menit untuk review harimu, lalu dengerin lagi.",
-        "Ucapin 3 pujian tulus ke orang yang kamu temui hari ini.",
-        "Latihan perkenalan diri dalam 30 detik (pitch singkat).",
-        "Coba ngobrol sama orang baru (bisa online juga).",
-        "Rekam dirimu cerita pengalaman lucu/aneh, lalu nilai ekspresinya.",
-        "Tulis caption IG yang lucu atau meaningful — tanpa overthinking.",
-        "Ikut diskusi atau grup chat dan kasih pendapat, jangan cuma jadi silent reader.",
-        "Ngomong pakai intonasi yang lebih ekspresif — no datar-datar club hari ini.",
-        "Tanya feedback dari teman: 'Gaya komunikasiku gimana menurutmu?'"
-      ],
-      // Daftar kategori lainnya sama seperti sebelumnya...
-    };
+  komunikasi: [
+    "Mulai obrolan duluan hari ini, walau cuma sapa ringan atau basa-basi positif.",
+    "Rekam cerita 1–2 menit soal harimu, lalu dengerin lagi sambil nilai kejelasanmu.",
+    "Kasih pujian spesifik ke seseorang, misalnya soal sikap, cara kerja, atau penampilan.",
+    "Tanya pendapat ke orang lain dan fokus dengerin tanpa motong pembicaraan.",
+    "Ceritain satu pengalamanmu hari ini dengan alur: awal, tengah, akhir.",
+    "Balas chat pakai kalimat lengkap dan sopan, hindari singkatan atau emot doang.",
+    "Ngobrol dengan nada suara yang jelas, santai, dan nggak datar.",
+    "Tanya balik saat orang cerita, misalnya: 'Terus gimana?' atau 'Kamu ngapain habis itu?'",
+    "Luangin waktu ngobrol tanpa gangguan HP, coba fokus penuh ke lawan bicara.",
+    "Kirim voice note bebas ke teman, sekadar cerita atau ngucapin sesuatu dengan suaramu.",
+    "Setelah ngobrol penting, coba tulis ulang isi percakapannya dengan gaya bahasamu sendiri.",
+    "Ajak ngobrol orang yang belum terlalu dekat hari ini—latihan biar makin luwes.",
+    "Latihan presentasi singkat atau wawancara pura-pura selama 2 menit di depan kaca.",
+    "Ambil jeda 3 detik sebelum jawab pertanyaan, biasakan mikir dulu baru bicara."
+  ],
+  berpikir_kritis: [
+    "Baca 1 artikel atau esai berkualitas yang memicu pemikiran.",
+    "Tulis jurnal refleksi singkat selama 5 menit, tentang pikiran atau perasaan hari ini.",
+    "Mainkan permainan otak ringan seperti sudoku, teka-teki logika, atau catur online.",
+    "Kurangi konsumsi pasif, ganti sebagian waktu scroll medsos dengan baca, nulis, atau diskusi.",
+    "Setelah membaca atau menonton sesuatu, coba simpulkan dalam 1 kalimat.",
+    "Tulis ulang informasi yang kamu pelajari dengan kata-katamu sendiri.",
+    "Buat mind map kecil dari satu kata kunci, lalu kembangkan ide-idenya.",
+    "Ambil hal sepele dan buat pertanyaan baru dari situ, sekreatif mungkin.",
+    "Main permainan gerak yang menantang logika, seperti lempar tangkap sambil sebut angka kelipatan.",
+    "Gunakan waktu bersih-bersih untuk menyusun rencana atau mengevaluasi ide.",
+    "Coba olahraga tanpa musik, manfaatkan waktu itu untuk berpikir bebas.",
+    "Ambil benda di dekatmu, lalu pikirkan 3 fungsi alternatif dari benda itu sambil utak-atik.",
+    "Lakukan tantangan 30 menit tanpa alat elektronik, isi dengan aktivitas fisik sambil mikir.",
+    "Mainkan puzzle fisik seperti Rubik's cube, lego, atau mainan bongkar pasang sederhana."
+  ]
+};
+
   
     function shuffleArray(arr) {
       return [...arr].sort(() => Math.random() - 0.5);
@@ -189,7 +207,7 @@
   
       const challengeList = document.getElementById("challengeList");
       const judul = document.getElementById("judulTantangan");
-      judul.textContent = `Tantangan ${kategori.replace(/_/g, ' ').toUpperCase()}`;
+      judul.textContent = `CHALLENGE ${kategori.replace(/_/g, ' ').toUpperCase()}`;
       challengeList.innerHTML = "";
   
       let selectedChallenges = getStoredChallenges(kategori);
