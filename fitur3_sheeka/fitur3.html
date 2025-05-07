@@ -138,8 +138,8 @@
         const permission = await OneSignal.Notifications.permission;
         if (permission) {
           // Dapatkan ID OneSignal (untuk debugging)
-          const deviceState = await OneSignal.getDeviceState();
-          const oneSignalUserId = deviceState?.userId;
+          //const deviceState = await OneSignal.getDeviceState();
+          //const oneSignalUserId = deviceState?.userId;
           
           if (oneSignalUserId) {
             console.log("OneSignal User ID:", oneSignalUserId);
