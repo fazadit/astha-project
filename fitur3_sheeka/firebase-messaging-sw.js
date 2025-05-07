@@ -30,4 +30,8 @@ messaging.onBackgroundMessage((payload) => {
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+  self.addEventListener('message', function(event) {
+    console.log('Pesan dari thread utama:', event.data);
+  });
+  
 });
