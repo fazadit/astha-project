@@ -11,11 +11,14 @@ hamburgerBtn.addEventListener('click', () => {
 // Motivasi
 
 const quotes = [
-    "Kegagalan adalah awal dari kesuksesan.",
-    "Tetaplah berusaha meskipun sulit.",
-    "Kamu lebih kuat dari yang kamu kira.",
-    "Jangan takut gagal, takutlah untuk tidak mencoba.",
-    "Hari ini sulit, besok akan lebih baik."
+    "Jika Anda takut gagal, Anda tidak pantas untuk sukses!.",
+    "Sukses tidak datang kepadamu, kamu harus pergi ke sana.",
+    "Keyakinan diri dan kerja keras akan selalu membuat Anda sukses.",
+    "Rahasia kesuksesanmu ditentukan oleh agenda harian mu.",
+    "Jangan malu dengan kegagalanmu, belajarlah darinya dan mulai lagi.",
+    "Fokus pada perjalanan, bukan tujuan.",
+    "Jangan biarkan kegagalan kemarin menyita terlalu banyak hari ini.",
+    "Ingin menjadi orang lain adalah menyia-nyiakan dirimu."
 ];
 
 let currentIndex = 0;
